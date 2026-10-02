@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      The launcher label and the title bar. Everything else is in
+      dev.airhealth.i18n.Strings, which can be switched at runtime; an app label cannot,
+      so it stays in one language. "Health Export" reads the same in Spanish, which is
+      part of why it was chosen over a longer descriptive name.
+    -->
+    <string name="app_name">Health Export</string>
+</resources>

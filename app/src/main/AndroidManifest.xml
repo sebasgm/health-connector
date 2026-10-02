@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      No INTERNET permission, deliberately. Everything this app reads comes from
+      Health Connect on the device, so a network permission would be a capability it
+      has no use for and a question the user would be right to ask about.
+    -->
+
+    <!--
+      Health Connect permissions. Declared here, but granted by the user in Health
+      Connect's own UI rather than a runtime prompt: the request contract opens that
+      screen. A permission missing from this list never appears there to be granted,
+      which looks like the data not existing.
+    -->
+    <uses-permission android:name="android.permission.health.READ_HEART_RATE" />
+    <uses-permission android:name="android.permission.health.READ_HEART_RATE_VARIABILITY" />
+    <uses-permission android:name="android.permission.health.READ_OXYGEN_SATURATION" />
+    <uses-permission android:name="android.permission.health.READ_STEPS" />
+    <uses-permission android:name="android.permission.health.READ_SLEEP" />
+
+    <!--
+      On Android 13 and below Health Connect is a separate installable app rather than
+      part of the platform, and package visibility rules hide it. Without this query,
+      getSdkStatus reports it unavailable on a device where it is in fact installed.
+      From Android 14 on it is part of the OS and this is ignored.
+    -->
+    <queries>
+        <package android:name="com.google.android.apps.healthdata" />
+    </queries>
+
+    <application
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AirHealth"
+        android:supportsRtl="true"
+        android:allowBackup="false"
+        android:fullBackupContent="false">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Android 13 and below: Health Connect opens this to show why the app
+                 wants the data, from a link on its own permission screen. -->
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
+            </intent-filter>
+        </activity>
+
+        <!-- Android 14+: the same rationale, reached through the system permission
+             usage screen. An alias, so there is one screen to keep correct. -->
+        <activity-alias
+            android:name="ViewPermissionUsageActivity"
+            android:exported="true"
+            android:targetActivity=".MainActivity"
+            android:permission="android.permission.START_VIEW_PERMISSION_USAGE">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW_PERMISSION_USAGE" />
+                <category android:name="android.intent.category.HEALTH_PERMISSIONS" />
+            </intent-filter>
+        </activity-alias>
+    </application>
+</manifest>

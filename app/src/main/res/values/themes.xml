@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      Compose draws everything; this only has to exist and not flash white before the
+      first frame. Theme.Material (not .Light) is the dark variant, so the window
+      background already matches the dark colour scheme.
+    -->
+    <style name="Theme.AirHealth" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">#101318</item>
+    </style>
+</resources>

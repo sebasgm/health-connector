@@ -1,0 +1,39 @@
+# Versions proven to build on this machine (Android SDK 37.1, JDK 17 under ~/tools).
+# Bumping any of them is fine, but do it one at a time.
+[versions]
+agp = "9.4.1"
+kotlin = "2.4.20"
+coroutines = "1.11.0"
+healthConnect = "1.1.0"
+composeBom = "2026.09.00"
+lifecycle = "2.11.0"
+activityCompose = "1.13.0"
+junit = "5.11.4"
+
+[libraries]
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+
+# The whole data layer. Stable release rather than a 1.2 alpha: this is the path that
+# returns the data, so it is the one that must not churn.
+health-connect = { module = "androidx.health.connect:connect-client", version.ref = "healthConnect" }
+
+androidx-core-ktx = { module = "androidx.core:core-ktx", version = "1.19.0" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+# collectAsStateWithLifecycle lives here, not in lifecycle-runtime-ktx.
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
+
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version = "1.11.4" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
